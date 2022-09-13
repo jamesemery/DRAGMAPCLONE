@@ -169,6 +169,11 @@ public:
     return ret;
   }
 
+  const map::SeedChain& chain() const {assert(chain_); return *chain_;}
+  void setChain(const map::SeedChain& c) {assert(!chain_ || &c == chain_); chain_ = &c;}
+  bool hasOnlyRandomSamples() const { return isUnmapped() || chain().hasOnlyRandomSamples();}
+  bool isExtra() const { return isUnmapped() || chain().isExtra();}
+
   uint32_t setCigarOperations(const std::string& operations, int softClipStart = 0)
   {
     auto ret = cigar_.setOperationSequence(operations, softClipStart);
@@ -246,6 +251,7 @@ public:
   short getNm() const { return getMismatchCount(); }
 
 private:
+  const map::SeedChain* chain_ = 0;
   Cigar            cigar_;
   const Alignment* sa_ = 0;
   /// lengths clipped at the beginning and at the end of the sequence
@@ -449,6 +455,12 @@ public:
     return (nullptr != seedChains_[0]) && (nullptr != seedChains_[1]) && seedChains_[0]->isPerfect() &&
            seedChains_[1]->isPerfect();
   }
+  bool             hasOnlyRandomSamples() const { return
+    (at(0).isUnmapped() || at(0).hasOnlyRandomSamples()) &&
+    (at(1).isUnmapped() || at(1).hasOnlyRandomSamples());}
+  bool             isExtra() const { return
+    (at(0).isUnmapped() || at(0).isExtra()) &&
+    (at(1).isUnmapped() || at(1).isExtra());}
   bool                 isFiltered() const { return at(0).isFiltered() || at(1).isFiltered(); }
   friend std::ostream& operator<<(std::ostream& os, const AlignmentPair& p)
   {

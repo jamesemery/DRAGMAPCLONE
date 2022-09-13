@@ -144,6 +144,7 @@ void Aligner::updateIneligibility(
 
 void Aligner::generateUngappedAlignment(const Read& read, map::SeedChain& seedChain, Alignment& alignment)
 {
+  alignment.setChain(seedChain);
   FlagType flags = !read.getPosition() ? Alignment::FIRST_IN_TEMPLATE : Alignment::LAST_IN_TEMPLATE;
   flags |= seedChain.isReverseComplement() ? Alignment::REVERSE_COMPLEMENT : Alignment::NONE;
   flags |= seedChain.isFiltered() ? Alignment::UNMAPPED : Alignment::NONE;
@@ -492,6 +493,8 @@ bool Aligner::rescuePair(
             rescued,
             anchoredIdx)) {
       chainBuilders_[rescuedIdx].addSeedChain(rescuedSeedChain);
+      rescued.setChain(chainBuilders_[rescuedIdx].back());
+
       unpairedAlignments_[rescuedIdx].append(rescued);
       makePair(
           insertSizeParameters,
