@@ -88,7 +88,7 @@ TEST(Aligner, updateMapqSingleEnded)
   const short                             mismatch = -1;
   const dragenos::align::SimilarityScores similarityScores(match, mismatch);
   const ReferenceDirDummy                 referenceDir;
-  const align::SinglePicker               picker(similarityScores, 19, 8, 0, 0, 0, false, 50);
+  const align::SinglePicker               picker(similarityScores, 19, 8, 0, 0, 0, false, 50, 0);
 
   const unsigned char reference[] =
       "TCCATCGAGATGGACGCCGTTGGCGCTCTCCGTCTTTCTCCATTGCGTCGTGGCCTTGCTATTGACTCTACTGTAGACATTTTTACTTTTTATGTCCCTC";
@@ -136,7 +136,7 @@ TEST(Aligner, updateMapqSingleEnded1XRepeat)
   const short                             mismatch = -1;
   const dragenos::align::SimilarityScores similarityScores(match, mismatch);
   const ReferenceDirDummy                 referenceDir;
-  const align::SinglePicker               picker(similarityScores, 19, 8, 0, 0, 0, false, 50);
+  const align::SinglePicker               picker(similarityScores, 19, 8, 0, 0, 0, false, 50, 0);
 
   const unsigned char reference[] =
       "TCCATCGAGATGGACGCCGTTGGCGCTCTCCGTCTTTCTCCATTGCGTCGTGGCCTTGCTATTGACTCTACTGTAGACATTTTTACTTTTTATGTCCCTC";

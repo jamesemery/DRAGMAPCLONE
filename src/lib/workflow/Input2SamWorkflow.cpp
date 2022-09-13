@@ -222,7 +222,8 @@ void parseSingleInput(
       options.alignerSecScoreDelta_,
       options.alignerSecPhredDelta_,
       options.alignerSecAlignsHard_,
-      options.alignerMapqMinLen_);
+      options.alignerMapqMinLen_,
+      options.alignerSampleMapq0_);
 
   const align::Sam sam(referenceDir.getHashtableConfig());
 
@@ -255,7 +256,8 @@ void parseSingleInput(
                 options.alignerSecScoreDelta_,
                 options.alignerSecPhredDelta_,
                 options.alignerSecAlignsHard_,
-                options.alignerMapqMinLen_);
+                options.alignerMapqMinLen_,
+                options.alignerSampleMapq0_);
 
             align::Aligner aligner(
                 referenceDir,
